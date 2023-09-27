@@ -29,29 +29,53 @@ const printStacks = () => {
   console.log("c: " + stacks.c);
 }
 
-// Next, what do you think this function should do?
-const movePiece = () => {
-  // Your code here
-
-}
-
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
-  // Your code here
+const isLegal = (startStack, endStack) => {
+
+  let startLast = stacks[startStack].length;
+  let endLast = stacks[endStack].length;
+
+ if ( stacks[endStack].length == 0) {
+  return true
+ }
+
+ if (stacks[startStack][startLast] > stacks[endStack][endLast]) {
+  return true
+ }
+
+ else {
+  return false
+ }
 
 }
 
 // What is a win in Towers of Hanoi? When should this function run?
+// a win is when C: [4, 3, 2, 1]
+// should check for a win after each move, if it's a win declare a message and end the game 
+// if it's not a win continue the game 
 const checkForWin = () => {
-  // Your code here
-
+  if(stacks.b.length == 4 || stacks.c.length == 4) {
+    console.log("You've won!")
+    return true
+  } else  {
+    return false
+  }
+  
 }
 
 // When is this function called? What should it do with its argument?
+// Lets someone enter the move they want to make and then displays that on the board 
+// a move is structured as (moving from, moving to)
+// a move will always move the "top-most" number from the stack. 
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
-
-}
+  //if isLegal is true for the startStack and isLegal is true for the endStack, then put the move on the board
+  if (isLegal(startStack, endStack) == true) {
+    let endNumber = stacks[startStack].pop()
+    stacks[endStack].push(endNumber)
+  }
+  checkForWin();
+  }
 
 const getPrompt = () => {
   printStacks();
